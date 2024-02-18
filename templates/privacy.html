@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+
+{% block title %}Privacy Policy{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block header %}
+<!-- Header -->
+<div class="container py-4">
+    <div class="row">
+        <div class="col-xl-10 offset-xl-1">
+            <p class="text-center display-2">Privacy Policy</p>
+        </div>
+    </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+<!-- Basic -->
+<div class="ex-basic-1 pt-3 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 offset-xl-1">
+                <h3 class="mt-5 mb-3">1. Private data we receive and collect</h3>
+                <p class="mb-5">
+                    We collect personal data that you provide to us voluntarily when you use our services. This may
+                    include your name, email address, phone number, and other information necessary for providing our
+                    services.
+                </p>
+                <h4>1.1. Each time you visit the website</h4>
+                <p class="mb-5">
+                    we automatically collect certain information about your device and your interaction with our
+                    services. This may include your IP address, browser type, the pages you visited, and other
+                    diagnostic data.
+                </p>
+                <h4>1.2. When you first register an account</h4>
+                <p class="mb-5">We ask for your personal information such as your name, email address, and password. We
+                    use this information to create and manage your account, provide you with customer support, and
+                    communicate with you about our services.</p>
+                <h3 class="mb-3">2. Advantages of working with our service</h3>
+                <p>
+                    Our service provides a robust solution for managing your cybersecurity needs. We help businesses
+                    protect their sensitive data, comply with industry regulations, and build customer trust.
+                </p>
+                <ul class="list-unstyled li-space-lg mb-4">
+                    <li class="d-flex">
+                        <i class="fas fa-square"></i>
+                        <div class="flex-grow-1"><strong>To story tell you</strong> about our commitment to privacy, we
+                            ensure that we handle your personal data with utmost care and in accordance with applicable
+                            laws and regulations.</div>
+                    </li>
+                    <li class="d-flex">
+                        <i class="fas fa-square"></i>
+                        <div class="flex-grow-1"><strong>To enable us</strong> to provide you with our services, we may
+                            need to collect and process certain personal information. We only collect information that
+                            is necessary for the purpose of providing our services.</div>
+                    </li>
+                    <li class="d-flex">
+                        <i class="fas fa-square"></i>
+                        <div class="flex-grow-1"><strong>To verify your</strong> identity and protect your information
+                            from unauthorized access, we may use certain information like your email address or phone
+                            number. We also use this information to communicate with you about your use of our services.
+                        </div>
+                    </li>
+                </ul>
+                <p class="mb-5">
+                    We are committed to providing a secure and reliable service for all our users. If you
+                    have any questions or need further information, please don't hesitate to contact us.</p>
+                <div class="text-box mb-5">
+                    <h4>Contact You About Your Account and Provide Customer Service</h4>
+                    <p>We prioritize maintaining open lines of communication with our users. Our team is always ready to
+                        assist you with any inquiries or issues related to your account. We believe in providing prompt
+                        and efficient customer service to ensure a seamless user experience.</p>
+                    <p>Whether you need help with account settings, understanding features, or troubleshooting, our
+                        dedicated customer service team is just a message away. We also use your contact information to
+                        send important account updates and notifications.</p>
+                </div> <!-- end of text-box -->
+
+                <h3 class="mb-3">3. Better understand your needs</h3>
+                <p class="mb-5">We collect and analyze your usage data to better understand your needs and provide you with personalized services. This includes understanding how you use our services, what features you use the most, and how we can improve to serve you better.</p>
+                <h4>3.1. In these ways please stop using the services</h4>
+                <p class="mb-5">If at any point you feel that our services are not meeting your needs or you have concerns about the data we collect, you have the right to stop using our services. We respect your decision and you can always reach out to our customer support for any assistance during this process.</p>
+                <h4>3.2. By visiting word or using the services you agree</h4>
+                <p class="mb-5">By using our services, you agree to our terms of service and privacy policy. This includes how we collect, store, and use your personal data. We encourage you to read these documents carefully and reach out to us if you have any questions.
+                </p>
+                <div class="text-box mb-5">
+                    <ul class="list-unstyled li-space-lg">
+                        <li class="d-flex">
+                            <i class="fas fa-square"></i>
+                            <div class="flex-grow-1"><strong>To decide: </strong> We use the data we collect to make informed decisions about how to improve our services. We analyze usage patterns, feedback, and other data to continuously refine and enhance our services.</div>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fas fa-square"></i>
+                            <div class="flex-grow-1"><strong>To enable us</strong> the and collecting motionless
+                                difficulty son. His hearing staying ten colonel met. Word drew six easy four dear cold
+                                deny. satiable it considered invitation he travelling insensible</div>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fas fa-square"></i>
+                            <div class="flex-grow-1"><strong>To verify: </strong>The data we collect enables us to provide you with services. It helps us authenticate your identity, secure your data, and provide personalized experiences.</div>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fas fa-square"></i>
+                            <div class="flex-grow-1"><strong>To better understand: </strong> We use your data to verify your identity and protect your account from unauthorized access. This includes using your email address or phone number for two-factor authentication.
+                            </div>
+                        </li>
+                        <li class="d-flex">
+                            <i class="fas fa-square"></i>
+                            <div class="flex-grow-1"><strong>We also use: </strong> In addition to the uses described above, we may use your data for legal purposes, in compliance with applicable laws and regulations.</div>
+                        </li>
+                    </ul>
+                </div> <!-- end of text-box -->
+
+                <div class="container">
+                    <p class="text-center text-dark h5">
+                        Have any questions? <br> <a class="btn-solid-reg my-2" href="{% url 'home' %}#contact">Get in touch</a>
+                    </p>
+                </div>
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of ex-basic-1 -->
+<!-- end of basic -->
+
+
+{% endblock content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

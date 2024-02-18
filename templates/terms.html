@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+
+{% block title %}Privacy Policy{% endblock title %}
+
+{% block custom_css %}
+{% endblock custom_css %}
+
+{% block header %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-xl-10 offset-xl-1">
+            <p class="text-center text-dark display-4">Terms & Conditions</p>
+        </div> <!-- end of col -->
+    </div> <!-- end of row -->
+</div> <!-- end of container -->
+
+{% endblock header %}
+
+{% block content %}
+<!-- Basic -->
+<div class="ex-basic-1 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 offset-xl-1">
+                <div class="text-box mt-5 mb-5">
+                    <p class="p-large">Welcome to our website. By continuing to browse and use this website, you are
+                        agreeing to comply with and be bound by the following terms and conditions of use.</p>
+                </div> <!-- end of text-box -->
+
+                <h2 class="mb-3">1. Each time you visit the website or use our services</h2>
+                <p>Each time you visit our website or use our services, you agree to comply with our terms and
+                    conditions. This includes respecting all copyright and trademark laws, and conducting yourself in a
+                    respectful manner while using our services.</p>
+                <p class="mb-5">We reserve the right to suspend or terminate your access to our services if we determine
+                    that you are in breach of any of our terms and conditions.</p>
+
+                <h2 class="mb-3">2. If you use materials from this site</h2>
+                <p>All materials on this site, including text, graphics, logos, icons, and images, are the property of
+                    our company or its content suppliers and are protected by copyright laws. You may not use these
+                    materials for commercial purposes without our express written consent.</p>
+                <p class="mb-4">You may use our materials for personal, non-commercial use, provided that you keep
+                    intact all copyright and other proprietary notices.</p>
+
+                <ul class="list-unstyled li-space-lg mb-4">
+                    <li class="d-flex">
+                        <i class="fas fa-square"></i>
+                        <div class="flex-grow-1"><strong>Modified or Unmodified:</strong> You may not modify the
+                            materials on this site in any way or reproduce or publicly display, perform, distribute, or
+                            otherwise use them for any public or commercial purpose.</div>
+                    </li>
+                    <li class="d-flex">
+                        <i class="fas fa-square"></i>
+                        <div class="flex-grow-1"><strong>You can use our templates:</strong> You may use our templates
+                            for your personal or business use, but you may not distribute or resell them, or use them to
+                            create derivative works.</div>
+                    </li>
+                    <li class="d-flex">
+                        <i class="fas fa-square"></i>
+                        <div class="flex-grow-1"><strong>For Redistribution or Resale:</strong> You may not
+                            redistribute, resell, lease, license, sub-license or offer our resources to any third party.
+                            This includes uploading our resources to another website or media-sharing tool, and offering
+                            our resources as a separate attachment from any of your work.</div>
+                    </li>
+                </ul>
+
+                <p class="mb-5">
+                    Violation of our terms and services of redistribution and resale as stated above may lead to legal
+                    action against you. We reserve the right to suspend or terminate your access to our services if we
+                    determine that you are in breach of any of our terms and conditions.
+                </p>
+
+                <h2 class="mb-2">3. The website is provided on an 'as is' basis</h2>
+                <p>The website is provided on an 'as is' basis. Our company makes no warranties, expressed or implied,
+                    and hereby disclaims and negates all other warranties including, without limitation, implied
+                    warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement
+                    of intellectual property or other violation of rights.</p>
+                <p class="mb-2">Further, our company does not warrant or make any representations concerning the
+                    accuracy, likely results, or reliability of the use of the materials on its website or otherwise
+                    relating to such materials or on any sites linked to this site.</p>
+                <p class="mb-2">
+                    We do not warrant that the website will be available at any given time, secure, accurate, or free of
+                    errors. We also do not warrant that the results that may be obtained from the use of the website
+                    will
+                    be accurate or reliable.
+                </p>
+
+
+                <div class="text-box mb-5">
+                    <h4>Features and Services</h4>
+                    <p>Our services offer a variety of features designed to help you manage your cybersecurity needs.
+                        These features are subject to the terms and conditions outlined in this document. By using our
+                        services, you agree to use these features in accordance with all applicable laws and
+                        regulations.</p>
+                    <p class="mb-5">We reserve the right to modify or discontinue any feature at any time, and we will
+                        make every effort to notify you of any significant changes. Your continued use of our services
+                        after such changes constitutes your acceptance of the new Terms of Use and Conditions.</p>
+                </div> <!-- end of text-box -->
+
+
+                <div class="container">
+                    <p class="text-center text-dark h5">
+                        Have any questions? <br> <a class="btn-solid-reg my-2" href="{% url 'home' %}#contact">Get in
+                            touch</a>
+                    </p>
+                </div>
+
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of ex-basic-1 -->
+{% endblock content %}
+
+{% block custom_js %}
+{% endblock custom_js %}

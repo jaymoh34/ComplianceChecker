@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}Log in{% endblock %}
+
+{% block header %}
+<div class="container py-4">
+	<h1 class="text-center">Log In</h1>
+	<p class="text-center">
+		<small>Log in to your account to access your dashboard</small>
+	</p>
+</div>
+{% endblock header%}
+
+{% block content %}
+<section class="container justify-content-center w-50">
+	<form class="mb-3" method="post">
+		{% csrf_token %}
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-lg-6">
+				<div class="form-group">
+					<label for="id_username">Business Registration Number</label>
+					<input class="form-control" type="text" id="id_username" name="username" required placeholder="BRN">
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-lg-6">
+				<div class="form-group">
+					<label for="id_password">Password</label>
+					<input class="form-control" type="password" id="id_password" name="password" required
+						placeholder="Password">
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center">
+			<button class="btn-solid-sm-success" type="submit" id="login-button">Log In</button>
+			<br>
+			<a href="{% url 'password_reset' %}">Forgot your password?</a>
+		</div>
+	</form>
+</section>
+{% endblock content %}
