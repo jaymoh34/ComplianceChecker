@@ -1,0 +1,72 @@
+{% extends "dash-base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}HIPAA|Report{% endblock %}
+
+{% block custom_css %}
+
+{% endblock custom_css %}
+
+{% block header %}
+<div class="container py-4">
+    <h1 class="text-center text-dark display-3">HIPAA Report</h1>
+</div>
+{% endblock header%}
+
+{% block content %}
+<section class="container">
+    <div class="d-sm-flex justify-content-end align-items-center mb-4">
+        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button"
+            href="{% url 'generate_hipaa_report' %}">
+            <i class="fas fa-download fa-sm text-white-50"></i>
+            &nbsp;Generate Report
+        </a>
+    </div>
+    <div class="card shadow p-4 m-4 text-center">
+        <h2 class="text-dark">HIPAA Compliance Status</h2>
+        <p class="text-dark">
+            You are {{ user.get_hipaa_compliance_percentage|floatformat:0 }}% compliant with HIPAA
+        </p>
+    </div>
+
+    <div class="card shadow p-4 m-4 text-center">
+        <table id="hipaa-compliance-table" class="display">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Checklist Item</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hipaa_response in hipaa_responses %}
+                <tr {% if not hipaa_response.response_status %}class="fail-row" {% endif %}>
+                    <td style="width: auto;">
+                        #
+                    </td>
+                    <td style="width: 80%;">{{ hipaa_response.checklist_item.item_description }}</td>
+                    <td style="width: 10%;">
+                        {% if hipaa_response.response_status is True %}
+                        <i class="fas fa-check" style="color: green;"></i>
+                        <span class="visually-hidden">Pass</span>
+                        {% else %}
+                        <i class="fas fa-times" style="color: red;"></i>
+                        <span class="visually-hidden">Fail</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock content %}
+
+{% block custom_js %}
+<script>
+    new DataTable('#hipaa-compliance-table', {
+        pagingType: 'simple_numbers'
+    });
+</script>
+{% endblock custom_js %}

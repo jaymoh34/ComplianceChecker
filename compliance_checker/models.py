@@ -25,7 +25,7 @@ class PCIRequirement(models.Model):
         on_delete=models.CASCADE,
         related_name="pci_requirements",
     )
-    requirement_number = models.CharField(max_length=10)
+    requirement_number = models.IntegerField()
     requirement_description = models.TextField()
     added_at = models.DateTimeField(default=timezone.now)
 
@@ -48,17 +48,24 @@ class PCIChecklistItem(models.Model):
     added_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.item_description[:15]}"
+        return f"{self.item_description}"
 
     class Meta:
         verbose_name_plural = "PCI Checklist Items"
-        ordering = ["requirement", "item_description"]
+        ordering = ["requirement", "checklist_number"]
 
 
 class PCIChecklistResponse(models.Model):
     checklist_item = models.ForeignKey(PCIChecklistItem, on_delete=models.CASCADE)
     requirement = models.ForeignKey(
         PCIRequirement,
+        on_delete=models.CASCADE,
+        related_name="pci_responses",
+        null=True,
+        blank=True,
+    )
+    business = models.ForeignKey(
+        "accounts.Business",
         on_delete=models.CASCADE,
         related_name="pci_responses",
         null=True,
@@ -75,20 +82,21 @@ class PCIChecklistResponse(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name_plural = "Checklist Responses"
+        verbose_name = "PCI Checklist Response"
+        verbose_name_plural = "PCI Checklist Responses"
         ordering = ["checklist_item"]
 
 
 class HIPAARequirement(models.Model):
     standard = models.ForeignKey(
-        Standard, on_delete=models.CASCADE, related_name="hipaa_rules"
+        Standard, on_delete=models.CASCADE, related_name="hipaa_requirements"
     )
     requirement_number = models.IntegerField()
-    rule_title = models.CharField(max_length=255)
+    requirement_description = models.CharField(max_length=255)
     added_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f"{self.requirement_number} - {self.rule_title} - {self.standard}"
+        return f"{self.requirement_number} - {self.requirement_description} - {self.standard}"
 
     class Meta:
         verbose_name_plural = "HIPAA Requirements"
@@ -98,7 +106,7 @@ class HIPAARequirement(models.Model):
 class HIPAAChecklistItem(models.Model):
     item_description = models.CharField(max_length=255)
 
-    rule = models.ForeignKey(
+    requirement = models.ForeignKey(
         HIPAARequirement, on_delete=models.CASCADE, related_name="hipaa_items"
     )
     added_at = models.DateTimeField(default=timezone.now)
@@ -108,13 +116,20 @@ class HIPAAChecklistItem(models.Model):
 
     class Meta:
         verbose_name_plural = "HIPAA Checklist Items"
-        ordering = ["rule", "item_description"]
+        ordering = ["requirement", "item_description"]
 
 
 class HIPAAChecklistResponse(models.Model):
     checklist_item = models.ForeignKey(HIPAAChecklistItem, on_delete=models.CASCADE)
-    rule = models.ForeignKey(
+    requirement = models.ForeignKey(
         HIPAARequirement,
+        on_delete=models.CASCADE,
+        related_name="hipaa_responses",
+        null=True,
+        blank=True,
+    )
+    business = models.ForeignKey(
+        "accounts.Business",
         on_delete=models.CASCADE,
         related_name="hipaa_responses",
         null=True,
@@ -127,7 +142,7 @@ class HIPAAChecklistResponse(models.Model):
         return f"{self.checklist_item}"
 
     def save(self, *args, **kwargs):
-        self.rule = self.checklist_item.rule
+        self.requirement = self.checklist_item.requirement
         super().save(*args, **kwargs)
 
     class Meta:
@@ -154,7 +169,7 @@ class ISO27001ChecklistItem(models.Model):
         default=1, help_text="The importance of the item"
     )
     control_group = models.ForeignKey(
-        ISO27001ControlGroup, on_delete=models.CASCADE, related_name="iso_items"
+        ISO27001ControlGroup, on_delete=models.CASCADE, related_name="iso27k_items"
     )
     added_at = models.DateTimeField(default=timezone.now)
 
@@ -163,13 +178,20 @@ class ISO27001ChecklistItem(models.Model):
 
     class Meta:
         verbose_name_plural = "ISO27001 Checklist Items"
-        ordering = ["control_group", "item_description"]
+        ordering = ["control_group", "checklist_number"]
 
 
 class ISO27001ChecklistResponse(models.Model):
     checklist_item = models.ForeignKey(ISO27001ChecklistItem, on_delete=models.CASCADE)
     control_group = models.ForeignKey(
         ISO27001ControlGroup,
+        on_delete=models.CASCADE,
+        related_name="iso_responses",
+        null=True,
+        blank=True,
+    )
+    business = models.ForeignKey(
+        "accounts.Business",
         on_delete=models.CASCADE,
         related_name="iso_responses",
         null=True,

@@ -1,8 +1,6 @@
 # Final Year Project
 
 ## Description
-
-#### Compliance Checker
 This compliance checker is designed to verify compliance with HIPAA, ISO 27001, and PCI DSS standards.
 It performs checks and validations to ensure that the necessary security controls and requirements are in place.
 By using this tool, organizations can assess their compliance status and identify any gaps or areas of improvement.

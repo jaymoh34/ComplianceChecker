@@ -1,10 +1,12 @@
 from django.contrib import admin
 from .models import (
+    PCIChecklistResponse,
     Standard,
     PCIRequirement,
     PCIChecklistItem,
     HIPAARequirement,
     HIPAAChecklistItem,
+    HIPAAChecklistResponse,
     ISO27001ControlGroup,
     ISO27001ChecklistItem,
 )
@@ -23,7 +25,7 @@ class StandardAdmin(admin.ModelAdmin):
 class PCIRequirementAdmin(admin.ModelAdmin):
     list_display = ("requirement_number", "standard", "added_at")
     list_filter = ("standard",)
-    search_fields = ("requirement_number", "standard")
+    search_fields = ("requirement_number",)
     date_hierarchy = "added_at"
     ordering = ("standard", "requirement_number")
 
@@ -32,7 +34,7 @@ class PCIRequirementAdmin(admin.ModelAdmin):
 class PCIChecklistItemAdmin(admin.ModelAdmin):
     list_display = ("get_requirement_number", "checklist_number", "added_at")
     list_filter = ("requirement",)
-    search_fields = ("item_description", "requirement")
+    search_fields = ("item_description",)
     date_hierarchy = "added_at"
     ordering = ("requirement", "checklist_number")
 
@@ -44,11 +46,20 @@ class PCIChecklistItemAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(PCIChecklistResponse)
+class PCIChecklistResponseAdmin(admin.ModelAdmin):
+    list_display = ("checklist_item", "business", "response_status")
+    list_filter = ("business",)
+    search_fields = ("checklist_item",)
+    date_hierarchy = "response_at"
+    ordering = ("checklist_item",)
+
+
 @admin.register(HIPAARequirement)
-class HIPAARuleAdmin(admin.ModelAdmin):
-    list_display = ("requirement_number", "rule_title", "added_at")
+class HIPAARequirementAdmin(admin.ModelAdmin):
+    list_display = ("requirement_number", "requirement_description", "added_at")
     list_filter = ("requirement_number",)
-    search_fields = ("requirement_number", "rule_title")
+    search_fields = ("requirement_number", "requirement_description")
     date_hierarchy = "added_at"
     ordering = ("requirement_number",)
 
@@ -56,22 +67,31 @@ class HIPAARuleAdmin(admin.ModelAdmin):
 @admin.register(HIPAAChecklistItem)
 class HIPAAChecklistItemAdmin(admin.ModelAdmin):
     list_display = ("get_requirement_number", "item_description", "added_at")
-    list_filter = ("rule",)
-    search_fields = ("item_description", "rule")
+    list_filter = ("requirement",)
+    search_fields = ("item_description",)
     date_hierarchy = "added_at"
-    ordering = ("rule",)
+    ordering = ("requirement",)
 
     def get_requirement_number(self, obj):
-        return obj.rule.requirement_number
+        return obj.requirement.requirement_number
 
     get_requirement_number.short_description = (
-        "Rule Number"  # Sets column name in admin panel
+        "Requirement Number"  # Sets column name in admin panel
     )
+
+
+@admin.register(HIPAAChecklistResponse)
+class HIPAAChecklistResponseAdmin(admin.ModelAdmin):
+    list_display = ("checklist_item", "business", "response_status")
+    list_filter = ("business",)
+    search_fields = ("checklist_item",)
+    date_hierarchy = "response_at"
+    ordering = ("checklist_item",)
 
 
 @admin.register(ISO27001ControlGroup)
 class ISO27001ControlGroupAdmin(admin.ModelAdmin):
-    list_display = ("control_group_number","control_group_name", "added_at")
+    list_display = ("control_group_number", "control_group_name", "added_at")
     search_fields = ("control_group_name",)
     date_hierarchy = "added_at"
     ordering = ("control_group_name",)
@@ -81,7 +101,7 @@ class ISO27001ControlGroupAdmin(admin.ModelAdmin):
 class ISO27001ChecklistItemAdmin(admin.ModelAdmin):
     list_display = ("get_control_group_number", "checklist_number", "added_at")
     list_filter = ("control_group",)
-    search_fields = ("item_description", "control_group")
+    search_fields = ("item_description",)
     date_hierarchy = "added_at"
     ordering = ("control_group", "checklist_number")
 

@@ -1,0 +1,72 @@
+{% extends "dash-base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}ISO 27001|Report{% endblock %}
+
+{% block custom_css %}
+
+{% endblock custom_css %}
+
+{% block header %}
+<div class="container py-4">
+    <h1 class="text-center text-dark display-3">ISO 27001 Report</h1>
+</div>
+{% endblock header%}
+
+{% block content %}
+<section class="container">
+    <div class="d-sm-flex justify-content-end align-items-center mb-4">
+        <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button"
+            href="{% url 'generate_iso27k_report' %}">
+            <i class="fas fa-download fa-sm text-white-50"></i>
+            &nbsp;Generate Report
+        </a>
+    </div>
+    <div class="card shadow p-4 m-4 text-center">
+        <h2 class="text-dark">ISO 27001 Compliance Status</h2>
+        <p class="text-dark">
+            You are {{ user.get_iso27k_compliance_percentage|floatformat:0 }}% compliant with ISO 27001
+        </p>
+    </div>
+
+    <div class="card shadow p-4 m-4 text-center">
+        <table id="iso27k-compliance-table" class="display">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Checklist Item</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for iso27k_response in iso27k_responses %}
+                <tr {% if not iso27k_response.response_status %}class="fail-row" {% endif %}>
+                    <td style="width: auto;">
+                        {{iso27k_response.checklist_item.control_group.control_group_number}}.{{iso27k_response.checklist_item.checklist_number}}
+                    </td>
+                    <td style="width: 80%;">{{ iso27k_response.checklist_item.item_description }}</td>
+                    <td style="width: 10%;">
+                        {% if iso27k_response.response_status is True %}
+                        <i class="fas fa-check" style="color: green;"></i>
+                        <span class="visually-hidden">Pass</span>
+                        {% else %}
+                        <i class="fas fa-times" style="color: red;"></i>
+                        <span class="visually-hidden">Fail</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock content %}
+
+{% block custom_js %}
+<script>
+    new DataTable('#iso27k-compliance-table', {
+        pagingType: 'simple_numbers'
+    });
+</script>
+{% endblock custom_js %}

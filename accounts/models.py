@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from compliance_checker.models import (
+    HIPAAChecklistResponse,
+    PCIChecklistResponse,
+    ISO27001ChecklistResponse
+)
+
 
 class Business(AbstractUser):
     """
@@ -29,8 +35,50 @@ class Business(AbstractUser):
     def __str__(self):
         return self.business_name
 
+    def get_pci_compliance_percentage(self):
+        # Get the total number of checklist items for the user's business
+        total_items = PCIChecklistResponse.objects.filter(business=self).count()
+        # Get the number of checklist items that have been responded to (where response_status is True)
+        responded_items = PCIChecklistResponse.objects.filter(
+            business=self, response_status=True
+        ).count()
+        # Calculate the percentage of compliance
+        if total_items > 0:
+            compliance_percentage = (responded_items / total_items) * 100
+        else:
+            compliance_percentage = 0
+        return compliance_percentage
+
+    def get_hipaa_compliance_percentage(self):
+        # Get the total number of checklist items for the user's business
+        total_items = HIPAAChecklistResponse.objects.filter(business=self).count()
+        # Get the number of checklist items that have been responded to (where response_status is True)
+        responded_items = HIPAAChecklistResponse.objects.filter(
+            business=self, response_status=True
+        ).count()
+        # Calculate the percentage of compliance
+        if total_items > 0:
+            compliance_percentage = (responded_items / total_items) * 100
+        else:
+            compliance_percentage = 0
+        return compliance_percentage
+
+    def get_iso27k_compliance_percentage(self):
+        # Get the total number of checklist items for the user's business
+        total_items = ISO27001ChecklistResponse.objects.filter(business=self).count()
+        # Get the number of checklist items that have been responded to (where response_status is True)
+        responded_items = ISO27001ChecklistResponse.objects.filter(
+            business=self, response_status=True
+        ).count()
+        # Calculate the percentage of compliance
+        if total_items > 0:
+            compliance_percentage = (responded_items / total_items) * 100
+        else:
+            compliance_percentage = 0
+        return compliance_percentage
+
     class Meta:
-        verbose_name_plural = "Companies"
+        verbose_name_plural = "Businesses"
         ordering = ["business_name"]
 
 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCI DSS Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .fail-row {
+            background-color: #FFC0CB;
+            /* Light red */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+            /* Add this line */
+            border: 2px solid #ddd;
+            /* Adjust as needed */
+            border-radius: 10px;
+            /* Adjust as needed */
+
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: larger;
+        }
+
+        .success {
+            padding: 30px;
+            background-color: #04AA6D;
+        }
+
+        .danger {
+            background-color: #f44336;
+        }
+
+        .card {
+            width: 40%;
+            border-radius: 5px;
+            margin: auto;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3em;
+            color: #333;
+            text-align: center;
+        }
+
+        .percentage {
+            font-size: 2em;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="page-title">PCI DSS Compliance Report for {{business}} ({{business.username}})</h1>
+    <div class="card">
+        <h4 class="text-center">
+            You have achieved
+            &nbsp;<span class="percentage">{{business.get_pci_compliance_percentage|floatformat:0 }}%</span>
+            &nbsp;PCI DSS Compliance!
+        </h4>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Checklist Item</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pci_response in pci_responses %}
+            <tr {% if not pci_response.response_status %}class="fail-row" {% endif %}>
+                <td style="width: auto;">
+                    {{pci_response.checklist_item.checklist_number}}.{{pci_response.checklist_item.requirement.requirement_number}}
+                </td>
+                <td style="width: 80%;">{{ pci_response.checklist_item.item_description }}</td>
+                <td style="width: 10%;">
+                    {% if pci_response.response_status is True %}
+                    <button class="success">Fail</button>
+                    {% else %}
+                    <button class="danger">Pass</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
