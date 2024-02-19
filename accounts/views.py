@@ -1,6 +1,11 @@
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
-from accounts.forms import CompanyCreationForm, AuthenticationForm, ContactForm
+from accounts.forms import (
+    CompanyCreationForm,
+    AuthenticationForm,
+    ContactForm,
+    ProfileChangeForm,
+)
 from django.contrib import messages
 from .decorators import guest_required, user_required
 from bs4 import BeautifulSoup
@@ -46,7 +51,7 @@ def login_business(request):
                 return redirect("home")
             else:
                 messages.error(request, "Invalid username or password")
-                
+
         else:
             errors = str()
             for key, value in form.errors.items():
@@ -81,3 +86,34 @@ def contact(request):
             messages.error(request, errors)
 
     return redirect("home")
+
+
+@user_required
+def profile(request):
+    business = request.user
+    profile_form = ProfileChangeForm(instance=business)
+
+    template_name = "accounts/profile.html"
+    context = {
+        "section": "profile",
+        "profile_form": profile_form,
+    }
+    return render(request, template_name, context)
+
+
+@user_required
+def edit_profile(request):
+    if request.method == "POST":
+        profile_form = ProfileChangeForm(request.POST, instance=request.user)
+
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, "Your profile has been updated successfully")
+            return redirect("profile")
+        else:
+            errors = str()
+            for key, value in profile_form.errors.items():
+                soup = BeautifulSoup(str(value), "html.parser")
+                errors += f"{key.title()}: {soup.get_text()}<br>"
+
+            messages.error(request, errors)

@@ -37,4 +37,6 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("contact/", views.contact, name="contact"),
+    path("profile/", views.profile, name="profile"),
+    path("profile/edit/", views.edit_profile, name="edit_profile"),
 ]

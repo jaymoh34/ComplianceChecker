@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import ChecklistItem, ChecklistResponse
+from .models import Standard
 from accounts.decorators import user_required
 
 
