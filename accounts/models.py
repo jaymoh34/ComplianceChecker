@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from compliance_checker.models import (
     HIPAAChecklistResponse,
     PCIChecklistResponse,
-    ISO27001ChecklistResponse
+    ISO27001ChecklistResponse,
 )
 
 
@@ -35,6 +35,7 @@ class Business(AbstractUser):
     def __str__(self):
         return self.business_name
 
+    @property
     def get_pci_compliance_percentage(self):
         # Get the total number of checklist items for the user's business
         total_items = PCIChecklistResponse.objects.filter(business=self).count()
@@ -49,6 +50,7 @@ class Business(AbstractUser):
             compliance_percentage = 0
         return compliance_percentage
 
+    @property
     def get_hipaa_compliance_percentage(self):
         # Get the total number of checklist items for the user's business
         total_items = HIPAAChecklistResponse.objects.filter(business=self).count()
@@ -63,6 +65,7 @@ class Business(AbstractUser):
             compliance_percentage = 0
         return compliance_percentage
 
+    @property
     def get_iso27k_compliance_percentage(self):
         # Get the total number of checklist items for the user's business
         total_items = ISO27001ChecklistResponse.objects.filter(business=self).count()

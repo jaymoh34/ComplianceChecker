@@ -19,8 +19,20 @@ from django.contrib import messages
 
 @user_required
 def dashboard(request):
+    business = request.user
+    total_compliance_percentage = (
+        business.get_pci_compliance_percentage
+        + business.get_hipaa_compliance_percentage
+        + business.get_iso27k_compliance_percentage
+    ) / 3
+    total_non_compliance_percentage = 100 - total_compliance_percentage
+
     template_name = "compliance_checker/dashboard.html"
-    context = {"section": "dashboard"}
+    context = {
+        "section": "dashboard",
+        "total_compliance_percentage": total_compliance_percentage,
+        "total_non_compliance_percentage": total_non_compliance_percentage,
+    }
     return render(request, template_name, context)
 
 

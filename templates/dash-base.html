@@ -105,12 +105,12 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'hipaa_report' %}">
+						<a class="nav-link {% if section == 'hipaa_report' %}active{% endif %}" href="{% url 'hipaa_report' %}">
 							<i class="fas fa-book"></i><span>HIPAA Report</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'iso27k_report' %}">
+						<a class="nav-link {% if section == 'iso27k_report' %}active{% endif %}" href="{% url 'iso27k_report' %}">
 							<i class="fas fa-book"></i><span>ISO 27001 Report</span>
 						</a>
 					</li>
