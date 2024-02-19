@@ -20,6 +20,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     # my apps
     "accounts",
+    "compliance_checker",
     # default apps
     "django.contrib.admin",
     "django.contrib.auth",

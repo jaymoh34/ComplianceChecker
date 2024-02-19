@@ -53,4 +53,4 @@ class ChecklistResponse(models.Model):
 
     class Meta:
         verbose_name_plural = "Checklist Responses"
-        ordering = ["date", "item"]
+        ordering = ["checklist_item"]

@@ -46,7 +46,8 @@
     <nav id="navbarExample" class="navbar navbar-expand-lg fixed-top navbar-light" aria-label="Main navigation">
         <div class="container">
 
-            <a class="navbar-brand logo-text" href="{% url 'home' %}">
+            <a class="navbar-brand logo-text" href="{% url 'home' %}"
+                style="background-color: rgb(236, 255, 219); padding: 10px; border-radius: 10px;">
                 Compliance Checker
             </a>
 
@@ -57,6 +58,12 @@
 
             <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ms-auto navbar-nav-scroll">
+                    <!-- if user authenticated shw dashboard link -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}#frameworks">Frameworks</a>
                     </li>

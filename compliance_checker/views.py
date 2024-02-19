@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import ChecklistItem, ChecklistResponse
+from accounts.decorators import user_required
 
-# Create your views here.
+
+def dashboard(request):
+    template_name = "compliance_checker/dashboard.html"
+    context = {"section": "dashboard"}
+    return render(request, template_name, context)
