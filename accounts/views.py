@@ -49,7 +49,7 @@ def login_business(request):
             if business is not None:
                 login(request, business)
                 messages.success(request, f"Welcome back, {username}")
-                return redirect("home")
+                return redirect("dashboard")
             else:
                 messages.error(request, "Invalid username or password")
 
