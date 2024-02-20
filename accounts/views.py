@@ -1,4 +1,5 @@
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from accounts.forms import (
     CompanyCreationForm,
@@ -92,13 +93,36 @@ def contact(request):
 def profile(request):
     business = request.user
     profile_form = ProfileChangeForm(instance=business)
+    password_form = PasswordChangeForm(user=business)
 
     template_name = "accounts/profile.html"
     context = {
         "section": "profile",
         "profile_form": profile_form,
+        "password_form": password_form,
     }
     return render(request, template_name, context)
+
+
+@user_required
+def change_password(request):
+    if request.method == "POST":
+        password_form = PasswordChangeForm(request.user, request.POST)
+
+        if password_form.is_valid():
+            business = password_form.save()
+            messages.success(request, "Your password has been updated successfully")
+            update_session_auth_hash(request, business)
+            return redirect("profile")
+        else:
+            errors = str()
+            for key, value in password_form.errors.items():
+                soup = BeautifulSoup(str(value), "html.parser")
+                errors += f"{key.title()}: {soup.get_text()}<br>"
+
+            messages.error(request, errors)
+
+    return redirect("profile")
 
 
 @user_required
@@ -109,7 +133,6 @@ def edit_profile(request):
         if profile_form.is_valid():
             profile_form.save()
             messages.success(request, "Your profile has been updated successfully")
-            return redirect("profile")
         else:
             errors = str()
             for key, value in profile_form.errors.items():
@@ -117,3 +140,5 @@ def edit_profile(request):
                 errors += f"{key.title()}: {soup.get_text()}<br>"
 
             messages.error(request, errors)
+
+    return redirect("profile")

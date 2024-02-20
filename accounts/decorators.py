@@ -14,7 +14,7 @@ def user_required(view_func):
                 "You need to log in first to access the page you requested.",
             )
             return redirect(
-                "login"
+                "login_business"
             )  # Replace with the actual URL name of the login view.
 
     return wrapper
