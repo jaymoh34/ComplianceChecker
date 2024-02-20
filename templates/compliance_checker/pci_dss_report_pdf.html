@@ -105,9 +105,9 @@
                 <td style="width: 80%;">{{ pci_response.checklist_item.item_description }}</td>
                 <td style="width: 10%;">
                     {% if pci_response.response_status is True %}
-                    <button class="success">Fail</button>
+                    <button class="success">Pass</button>
                     {% else %}
-                    <button class="danger">Pass</button>
+                    <button class="danger">Fail</button>
                     {% endif %}
                 </td>
             </tr>
